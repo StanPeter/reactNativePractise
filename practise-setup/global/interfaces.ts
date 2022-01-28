@@ -1,4 +1,4 @@
 export interface Item {
-    title: String;
-    id: Number;
+    title: string;
+    id: number;
 }

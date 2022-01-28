@@ -9,7 +9,7 @@ import React, { useState } from "react";
 import { Item } from "../global/interfaces";
 
 interface Props {
-    setItems: Function;
+    setItems: React.Dispatch<React.SetStateAction<Item[]>>;
 }
 
 const ToDoControlBar: React.FC<Props> = ({ setItems }) => {

@@ -12,7 +12,7 @@ export default function App() {
     return (
         <SafeAreaView style={styles.container}>
             <ToDoControlBar setItems={setItems} />
-            <ToDoItems items={items} />
+            <ToDoItems items={items} setItems={setItems} />
         </SafeAreaView>
     );
 }
