@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { SafeAreaView, StyleSheet } from "react-native";
-import ToDoControlBar from "./components/ToDoControlBar";
-import ToDoItems from "./components/ToDoItems";
+import { SafeAreaView, StyleSheet, Text } from "react-native";
+import Header from "./components/Header";
+import StartScreen from "./screens/StartScreen";
 
 export default function App() {
     const [items, setItems] = useState([
@@ -11,8 +11,9 @@ export default function App() {
 
     return (
         <SafeAreaView style={styles.container}>
-            <ToDoControlBar setItems={setItems} />
-            <ToDoItems items={items} setItems={setItems} />
+            <Header title={"Guess a Number"} />
+            <StartScreen />
+            <Text>Not done</Text>
         </SafeAreaView>
     );
 }
@@ -21,6 +22,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#dde3eb",
-        marginTop: 30,
+        // marginTop: 30,
     },
 });
