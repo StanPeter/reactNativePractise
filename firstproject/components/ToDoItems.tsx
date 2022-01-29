@@ -18,7 +18,7 @@ interface Props {
 }
 
 const ToDoItems: React.FC<Props> = ({ items, setItems }) => {
-    const [isVisible, setIsVisible] = useState(false);
+    const [visible, setVisible] = useState('');
 
     // const fadeDeleteBtn = useRef(new Animated.Value(0)).current;
     const deleteItemHandler = (id: number) => {
@@ -34,8 +34,13 @@ const ToDoItems: React.FC<Props> = ({ items, setItems }) => {
 
     const renderItem = ({ item }: { item: Item }) => (
         <View style={styles.listItemWrapper}>
-            <ToDoItemDetail setVisible={setIsVisible} visible={isVisible} itemName={item.title} />
-            <TouchableOpacity onPress={() => setIsVisible(true)}>
+            <ToDoItemDetail
+                setVisible={setVisible}
+                visible={visible}
+                itemName={item.title}
+                itemId={item.id}
+            />
+            <TouchableOpacity onPress={() => setVisible(String(item.id))}>
                 <Image
                     style={styles.listItemImg}
                     source={{

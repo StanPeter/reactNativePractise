@@ -9,14 +9,20 @@ import {
 } from "react-native";
 
 interface Props {
-    visible: boolean;
-    setVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    visible: string;
+    setVisible: React.Dispatch<React.SetStateAction<string>>;
     itemName: string;
+    itemId: number;
 }
 
-const ToDoItemDetail: React.FC<Props> = ({ visible, setVisible, itemName }) => {
+const ToDoItemDetail: React.FC<Props> = ({
+    visible,
+    setVisible,
+    itemName,
+    itemId,
+}) => {
     return (
-        <Modal visible={visible} animationType="slide">
+        <Modal visible={String(itemId) === visible} animationType="slide">
             <SafeAreaView style={styles.container}>
                 {/* <View style={styles.container}> */}
                 <Text style={styles.itemName}>Detail of: {itemName}</Text>
@@ -27,7 +33,7 @@ const ToDoItemDetail: React.FC<Props> = ({ visible, setVisible, itemName }) => {
                     Aver oh ah ride mano viso ed cose lume. Ribollisse me
                     riflettere mi sollevando tranquilla la.
                 </Text>
-                <Button title="Go back" onPress={() => setVisible(false)} />
+                <Button title="Go back" onPress={() => setVisible("")} />
                 {/* </View> */}
             </SafeAreaView>
         </Modal>
