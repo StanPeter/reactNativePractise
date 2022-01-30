@@ -7,6 +7,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { Item } from "../global/interfaces";
+import { COLORS } from "../global/colors";
 
 interface Props {
     title: String;
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
         width: "100%",
         height: 80,
         paddingTop: 36,
-        backgroundColor: "#f7287b",
+        backgroundColor: COLORS.primary,
         alignItems: "center",
         justifyContent: "center",
     },

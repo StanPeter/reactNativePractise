@@ -13,7 +13,7 @@ export default function App() {
         <SafeAreaView style={styles.container}>
             <Header title={"Guess a Number"} />
             <StartScreen />
-            <Text>Not done</Text>
+            <Text>Not dossne</Text>
         </SafeAreaView>
     );
 }
