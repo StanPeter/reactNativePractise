@@ -1,22 +1,26 @@
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useState } from "react";
 import {
     Alert,
-    Dimensions,
     Keyboard,
     StyleSheet,
     Text,
-    TextInput,
     TouchableOpacity,
     TouchableWithoutFeedback,
     View,
 } from "react-native";
+import AppWrapper from "../components/AppWrapper";
 import Card from "../components/Card";
+import CustomBtn from "../components/CustomBtn";
 import Input from "../components/Input";
+import SelectedContainer from "../components/SelectedContainer";
 import { COLORS } from "../global/colors";
 
-interface Props {}
+interface Props {
+    navigation: NativeStackNavigationProp<any>;
+}
 
-const StartScreen: React.FC<Props> = ({}) => {
+const StartScreen: React.FC<Props> = ({ navigation }) => {
     const [enteredValue, setEnteredValue] = useState("");
     const [isConfirmed, setIsConfirmed] = useState(false);
     const [selectedNum, setSelectedNumber] = useState(-1);
@@ -53,57 +57,51 @@ const StartScreen: React.FC<Props> = ({}) => {
     };
 
     return (
-        <TouchableWithoutFeedback
-            //dismiss the keyboard on click somewhere else
-            onPress={() => {
-                Keyboard.dismiss();
-            }}
-        >
-            <View style={styles.container}>
-                <Text style={styles.title}>Start a New Game</Text>
-                <Card style={styles.inputContainer}>
-                    <Text>Select a Number</Text>
-                    <Input
-                        style={styles.inputText}
-                        blurOnSubmit
-                        autoCapitalize="none"
-                        autoCorrect={false}
-                        keyboardType="numeric"
-                        maxLength={2}
-                        onChangeText={enteredValueHandler}
-                        value={enteredValue}
-                    />
-                    <View style={styles.btnContainer}>
-                        <TouchableOpacity
-                            onPress={resetBtnHandler}
-                            style={{ ...styles.btn, ...styles.resetBtn }}
-                        >
-                            <Text style={{ color: "#fff" }}>Reset</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={confirmBtnHandler}
-                            style={{ ...styles.btn, ...styles.confirmBtn }}
-                        >
-                            <Text style={{ color: "#fff" }}>Confirm</Text>
-                        </TouchableOpacity>
-                    </View>
-                </Card>
-                {isConfirmed ? <View style={styles.separator}></View> : null}
-                {isConfirmed ? (
-                    <Card style={styles.selectedContainer}>
-                        <Text style={styles.selectedText}>Chosen Number</Text>
-                        <Text style={styles.selectedNum}>{selectedNum}</Text>
-                        <TouchableOpacity
-                            style={{ ...styles.btn, ...styles.selectedBtn }}
-                        >
-                            <Text style={{ fontSize: 16, color: "#fff" }}>
-                                Start game!
-                            </Text>
-                        </TouchableOpacity>
+        <AppWrapper>
+            <TouchableWithoutFeedback
+                //dismiss the keyboard on click somewhere else
+                onPress={() => {
+                    Keyboard.dismiss();
+                }}
+            >
+                <View style={styles.container}>
+                    <Text style={styles.title}>Start a New Game</Text>
+                    <Card style={styles.inputContainer}>
+                        <Text>Select a Number</Text>
+                        <Input
+                            style={styles.inputText}
+                            blurOnSubmit
+                            autoCapitalize="none"
+                            autoCorrect={false}
+                            keyboardType="numeric"
+                            maxLength={2}
+                            onChangeText={enteredValueHandler}
+                            value={enteredValue}
+                        />
+                        <View style={styles.btnContainer}>
+                            <CustomBtn
+                                style={styles.resetBtn}
+                                onPressHandler={resetBtnHandler}
+                                title={"Reset"}
+                            />
+                            <CustomBtn
+                                onPressHandler={confirmBtnHandler}
+                                title={"Confirm"}
+                            />
+                        </View>
                     </Card>
-                ) : null}
-            </View>
-        </TouchableWithoutFeedback>
+                    {isConfirmed ? (
+                        <View style={styles.separator}></View>
+                    ) : null}
+                    {isConfirmed ? (
+                        <SelectedContainer
+                            navigation={navigation}
+                            selectedNum={selectedNum}
+                        />
+                    ) : null}
+                </View>
+            </TouchableWithoutFeedback>
+        </AppWrapper>
     );
 };
 
@@ -140,31 +138,8 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         paddingHorizontal: 10,
     },
-    confirmBtn: {
-        backgroundColor: COLORS.primary,
-    },
     resetBtn: {
         backgroundColor: COLORS.accent,
-    },
-    selectedContainer: {
-        shadowColor: COLORS.primary,
-        // marginTop: "20%",
-        width: "60%",
-        padding: 10,
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "space-between",
-    },
-    selectedText: {},
-    selectedNum: {
-        fontSize: 28,
-        fontWeight: "600",
-        padding: 10,
-        color: COLORS.primary,
-    },
-    selectedBtn: {
-        marginTop: 15,
-        backgroundColor: COLORS.primary,
     },
     separator: {
         width: 1,

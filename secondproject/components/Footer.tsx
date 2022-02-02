@@ -5,11 +5,7 @@ import { COLORS } from "../global/colors";
 interface Props {}
 
 const Footer: React.FC<Props> = ({}) => {
-    return (
-        <View style={styles.footer}>
-            <Text>Footer</Text>
-        </View>
-    );
+    return <View style={styles.footer}>{/* <Text>Footer</Text> */}</View>;
 };
 
 export default Footer;

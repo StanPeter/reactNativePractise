@@ -1,39 +1,15 @@
-import {
-    View,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    StyleSheet,
-} from "react-native";
-import React, { useState } from "react";
-import { Item } from "../global/interfaces";
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
 import { COLORS } from "../global/colors";
 
 interface Props {
-    title: String;
-    headerStyle?: Object;
     // setItems: React.Dispatch<React.SetStateAction<Item[]>>;
 }
 
-const Header: React.FC<Props> = ({ title, headerStyle }) => {
-    // const [name, setName] = useState("");
-
-    // const addingHandler = () => {
-    //     setItems((prevValue: Item[]) => [
-    //         ...prevValue,
-    //         {
-    //             title: name,
-    //             id: Math.round(Math.random() * 1000),
-    //         },
-    //     ]);
-    //     // setName("");
-    // };
-
-    // const clearingHandler = () => setName("");
-
+const Header: React.FC<Props> = ({}) => {
     return (
         <View style={styles.header}>
-            <Text style={styles.headerTitle}>{title}</Text>
+            {/* <Text style={styles.headerTitle}>{""}</Text> */}
         </View>
     );
 };

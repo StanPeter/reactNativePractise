@@ -1,22 +1,28 @@
-import { useState } from "react";
-import { SafeAreaView, StyleSheet, Text } from "react-native";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import GameScreen from "./screens/GameScreen";
 import StartScreen from "./screens/StartScreen";
 
 export default function App() {
+    const Stack = createNativeStackNavigator();
+
     return (
-        <SafeAreaView style={styles.container}>
-            <Header title={"Guess a Number"} />
-            <StartScreen />
-            <Footer />
-        </SafeAreaView>
+        <NavigationContainer>
+            <Stack.Navigator initialRouteName="StartScreen">
+                <Stack.Screen
+                    options={{ headerShown: false }}
+                    component={StartScreen}
+                    name="StartScreen"
+                />
+                <Stack.Screen
+                    options={{
+                        headerShown: false,
+                        animation: "slide_from_bottom",
+                    }}
+                    component={GameScreen}
+                    name="GameScreen"
+                />
+            </Stack.Navigator>
+        </NavigationContainer>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#dde3eb",
-    },
-});
