@@ -1,5 +1,5 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Alert,
     Keyboard,
@@ -14,6 +14,7 @@ import Card from "../components/Card";
 import CustomBtn from "../components/CustomBtn";
 import Input from "../components/Input";
 import SelectedContainer from "../components/SelectedContainer";
+import Title from "../components/Title";
 import { COLORS } from "../global/colors";
 
 interface Props {
@@ -65,7 +66,7 @@ const StartScreen: React.FC<Props> = ({ navigation }) => {
                 }}
             >
                 <View style={styles.container}>
-                    <Text style={styles.title}>Start a New Game</Text>
+                    <Title title="Start a new Game" />
                     <Card style={styles.inputContainer}>
                         <Text>Select a Number</Text>
                         <Input
@@ -90,15 +91,30 @@ const StartScreen: React.FC<Props> = ({ navigation }) => {
                             />
                         </View>
                     </Card>
-                    {isConfirmed ? (
-                        <View style={styles.separator}></View>
-                    ) : null}
-                    {isConfirmed ? (
-                        <SelectedContainer
-                            navigation={navigation}
-                            selectedNum={selectedNum}
-                        />
-                    ) : null}
+                    {isConfirmed
+                        ? [
+                              <View key={0} style={styles.separator}></View>,
+                              <SelectedContainer
+                                  key={1}
+                                  selectedNum={selectedNum}
+                              />,
+                              <CustomBtn
+                                  key={2}
+                                  title={"Start game!"}
+                                  style={styles.selectedBtn}
+                                  titleStyle={{ fontSize: 16 }}
+                                  onPressHandler={() => {
+                                      navigation?.navigate("GameScreen", {
+                                          selectedNum: selectedNum,
+                                      });
+
+                                      setEnteredValue("");
+                                      setSelectedNumber(-1);
+                                      setIsConfirmed(false);
+                                  }}
+                              />,
+                          ]
+                        : null}
                 </View>
             </TouchableWithoutFeedback>
         </AppWrapper>
@@ -112,10 +128,6 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 10,
         alignItems: "center",
-    },
-    title: {
-        fontSize: 20,
-        marginVertical: 10,
     },
     inputContainer: {
         width: 300,
@@ -146,6 +158,10 @@ const styles = StyleSheet.create({
         height: 80,
         marginVertical: 10,
         backgroundColor: "grey",
+    },
+    selectedBtn: {
+        marginTop: 25,
+        backgroundColor: COLORS.primary,
     },
 });
 

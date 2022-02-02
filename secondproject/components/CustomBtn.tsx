@@ -6,7 +6,7 @@ interface Props {
     style?: Object;
     titleStyle?: Object;
     title: String;
-    onPressHandler?: () => void;
+    onPressHandler?: ({}: any) => void;
 }
 
 const CustomBtn: React.FC<Props> = ({

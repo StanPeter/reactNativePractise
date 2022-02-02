@@ -13,6 +13,8 @@ export default Card;
 
 const styles = StyleSheet.create({
     card: {
+        justifyContent: "center",
+        alignItems: "center",
         backgroundColor: "#fff",
         padding: 20,
         borderRadius: 10,

@@ -6,10 +6,13 @@ import AppWrapper from "../components/AppWrapper";
 import Card from "../components/Card";
 import CustomBtn from "../components/CustomBtn";
 import SelectedContainer from "../components/SelectedContainer";
+import Title from "../components/Title";
+import { COLORS } from "../global/colors";
 
 interface Props {
     navigation: NativeStackNavigationProp<any>;
     route: RouteProp<any>;
+    selectedNum: number;
 }
 
 /**
@@ -33,22 +36,34 @@ const generateRandomNum = (
     return randomNumber;
 };
 
-const GameScreen: React.FC<Props> = ({ navigation }) => {
-    const [currentGuess, setCurrentGuess] = useState(generateRandomNum(1, 100));
+const GameScreen: React.FC<Props> = ({ navigation, route }) => {
+    const [currentGuess, setCurrentGuess] = useState(route.params?.selectedNum);
 
     return (
         <AppWrapper>
             <View style={styles.container}>
-                <Text>Opponent's Guess</Text>
-                <SelectedContainer selectedNum={currentGuess} />
-                <Card style={styles.btnContainer}>
-                    <CustomBtn title={"LOWER"} />
-                    <CustomBtn title={"GREATER"} />
+                <Title title="Opponent's Guess" />
+                <Card>
+                    <SelectedContainer selectedNum={currentGuess} />
+                    <View style={styles.btnContainer}>
+                        <CustomBtn
+                            titleStyle={styles.controlButtonText}
+                            style={styles.controlButton}
+                            title={"LOWER"}
+                        />
+                        <CustomBtn
+                            titleStyle={styles.controlButtonText}
+                            style={styles.controlButton}
+                            title={"GREATER"}
+                        />
+                    </View>
                 </Card>
                 <CustomBtn
                     title={"Go back"}
-                    style={{ marginTop: 30 }}
-                    onPressHandler={() => navigation.navigate("StartScreen")}
+                    style={{ marginTop: 50 }}
+                    onPressHandler={() => {
+                        navigation.navigate("StartScreen");
+                    }}
                 />
             </View>
         </AppWrapper>
@@ -66,8 +81,18 @@ const styles = StyleSheet.create({
     btnContainer: {
         flexDirection: "row",
         justifyContent: "space-around",
-        marginTop: 20,
-        width: 300,
+        marginTop: 50,
+        width: 350,
         maxWidth: "80%",
+    },
+    controlButton: {
+        backgroundColor: "#fff",
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: COLORS.accent,
+    },
+    controlButtonText: {
+        color: COLORS.accent,
+        fontSize: 18,
     },
 });
